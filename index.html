@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Оля Куран — Портфолио игрового сценариста</title>
+  <meta name="description" content="Портфолио Оли Куран — игровой сценарист. Публикации, театральные проекты, игровые тексты." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── TOKENS ─── */
+    :root {
+      --bg:        #16120d;
+      --surface:   #211c15;
+      --panel:     #2a231a;
+      --border:    #3d3c32;
+      --text:      #d8cfc4;
+      --muted:     #8a8070;
+      --accent:    #b15f32;
+      --accent-lt: #c97a48;
+      --gold:      #d4a96a;
+      --white:     #f0ebe3;
+
+      --font-display: 'Cormorant Garamond', 'Georgia', serif;
+      --font-body:    'EB Garamond', 'Georgia', serif;
+
+      --r: 4px;
+      --transition: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    /* ─── RESET ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 18px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: var(--accent-lt); text-decoration: none; transition: color var(--transition); }
+    a:hover { color: var(--gold); }
+
+    /* ─── LAYOUT ─── */
+    .container {
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 clamp(1rem, 3vw, 1.75rem);
+    }
+    section { padding: clamp(2rem, 4vw, 3.5rem) 0; }
+
+    /* ─── NOISE TEXTURE (inline SVG background) ─── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      opacity: 0.025;
+      pointer-events: none;
+      z-index: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+    }
+    body > * { position: relative; z-index: 1; }
+
+    /* ─── HEADER / NAV ─── */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: oklch(from var(--bg) l c h / 0.85);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(61,60,50,0.5);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.9rem clamp(1.25rem, 5vw, 3rem);
+    }
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 300;
+      letter-spacing: 0.12em;
+      color: var(--gold);
+      text-transform: uppercase;
+    }
+    nav { display: flex; gap: 1.8rem; }
+    nav a {
+      font-family: var(--font-display);
+      font-size: 0.8rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: color var(--transition);
+    }
+    nav a:hover { color: var(--gold); }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 94vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-top: 8rem;
+      padding-bottom: clamp(4rem, 8vw, 6rem);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* SVG background constellation */
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--font-display);
+      font-size: clamp(0.7rem, 1.2vw, 0.85rem);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.2rem;
+    }
+    .hero-name {
+      font-family: var(--font-display);
+      font-size: clamp(3.2rem, 9vw, 7.5rem);
+      font-weight: 300;
+      line-height: 0.95;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.01em;
+    }
+    .hero-name em {
+      font-style: italic;
+      color: var(--gold);
+    }
+    .hero-subtitle {
+      font-family: var(--font-display);
+      font-size: clamp(1rem, 2.5vw, 1.4rem);
+      font-weight: 300;
+      color: var(--muted);
+      margin-bottom: 2rem;
+      letter-spacing: 0.04em;
+    }
+    .hero-tagline {
+      font-size: clamp(0.95rem, 1.8vw, 1.05rem);
+      color: var(--text);
+      max-width: 480px;
+      line-height: 1.6;
+      border-left: 2px solid var(--accent);
+      padding-left: 1.25rem;
+    }
+
+    /* ─── DIVIDER: Ornate SVG ─── */
+    .divider {
+      display: block;
+      width: 100%;
+      overflow: visible;
+      margin: 0;
+      line-height: 0;
+    }
+    .divider svg { display: block; width: 100%; }
+
+    .section-label {
+      font-family: var(--font-display);
+      font-size: 0.72rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ─── ABOUT ─── */
+    #about { background: var(--surface); }
+    .about-body {
+      font-size: clamp(1rem, 1.8vw, 1.15rem);
+      line-height: 1.8;
+      color: var(--text);
+      max-width: 640px;
+    }
+    .about-body p + p { margin-top: 1rem; }
+    .about-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 1.5rem;
+    }
+    .badge {
+      font-family: var(--font-display);
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 0.4rem 1rem;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      border-radius: 2rem;
+    }
+
+    /* ─── WORK SECTION WRAPPER ─── */
+    #work { background: var(--bg); }
+
+    /* ─── PROJECT CARD ─── */
+    .project {
+      margin-bottom: 2.5rem;
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .project:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+    .project-year {
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.4rem;
+    }
+    .project-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 0.8rem;
+      line-height: 1.2;
+    }
+    .project-desc {
+      font-size: 1rem;
+      color: var(--muted);
+      margin-bottom: 1.2rem;
+    }
+
+    /* ─── ITEM-CARDS (предметы) ─── */
+    .items-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .item-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      padding: 1.2rem 1.4rem;
+      border-radius: var(--r);
+      position: relative;
+      overflow: hidden;
+    }
+    .item-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+    }
+    .item-name {
+      font-family: var(--font-display);
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent-lt);
+      margin-bottom: 0.6rem;
+    }
+    .item-text {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* ─── QUOTE/PROSE BLOCK ─── */
+    .prose-block {
+      background: var(--panel);
+      border-left: 3px solid var(--accent);
+      padding: 1.4rem 1.6rem;
+      border-radius: 0 var(--r) var(--r) 0;
+      margin-top: 1.2rem;
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--text);
+    }
+    .prose-source {
+      display: block;
+      margin-top: 1rem;
+      font-size: 0.78rem;
+      font-style: normal;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+    }
+
+    /* ─── PLOT CARD (сюжет) ─── */
+    .plot-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 1.5rem 1.8rem;
+      margin-top: 1.2rem;
+      position: relative;
+    }
+    .plot-keyword {
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.6rem;
+    }
+    .plot-text {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--text);
+    }
+    .plot-text p + p { margin-top: 0.9rem; }
+
+    /* ─── MATH PROBLEMS (задачки) ─── */
+    .math-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 1.2rem 1.6rem;
+      margin-top: 1rem;
+    }
+    .math-card p + p { margin-top: 0.75rem; }
+    .math-q {
+      margin-top: 0.8rem;
+      padding-top: 0.7rem;
+      border-top: 1px dashed var(--border);
+      color: var(--gold);
+      font-size: 0.95rem;
+    }
+
+    /* ─── WORLD CARD ─── */
+    .world-card {
+      margin-top: 1.2rem;
+      background: linear-gradient(135deg, #2c1a10 0%, #1a1208 100%);
+      border: 1px solid var(--accent);
+      border-radius: var(--r);
+      padding: 1.5rem 1.8rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .world-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 80% 20%, rgba(177,95,50,0.12) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .world-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent-lt);
+      margin-bottom: 0.5rem;
+    }
+    .world-desc { font-size: 0.95rem; color: var(--text); line-height: 1.7; }
+
+    /* ─── WRITING SECTION ─── */
+    #writing { background: var(--surface); }
+
+    .writing-tab-group { margin-top: 1.2rem; }
+    .writing-tab-btns {
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 1.4rem;
+      flex-wrap: wrap;
+    }
+    .tab-btn {
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      padding: 0.6rem 1.2rem;
+      margin-bottom: -1px;
+      font-family: var(--font-display);
+      font-size: 0.8rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      cursor: pointer;
+      transition: color var(--transition), border-color var(--transition);
+    }
+    .tab-btn.active, .tab-btn:hover {
+      color: var(--gold);
+      border-bottom-color: var(--accent);
+    }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* Dialogue styling */
+    .dialogue {
+      font-size: 0.98rem;
+      line-height: 1.85;
+      color: var(--text);
+    }
+    .dialogue-line {
+      display: flex;
+      gap: 0.75rem;
+      margin-bottom: 0.4rem;
+    }
+    .speaker {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent-lt);
+      min-width: 80px;
+      padding-top: 0.15rem;
+      flex-shrink: 0;
+    }
+    .dialogue-action {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin: 0.3rem 0 0.3rem 0;
+      padding-left: 85px;
+    }
+
+    /* ─── ORNAMENTAL INLINE DIVIDERS ─── */
+    .ornament {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 1.8rem 0;
+      color: var(--border);
+    }
+    .ornament::before, .ornament::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--border), transparent);
+    }
+
+    /* ─── OUTRO ─── */
+    #outro { background: var(--bg); text-align: center; }
+    .outro-text {
+      font-family: var(--font-display);
+      font-size: clamp(1.2rem, 3vw, 1.6rem);
+      color: var(--muted);
+      max-width: 480px;
+      margin: 0 auto 1.5rem;
+      line-height: 1.6;
+    }
+    .cta-line {
+      font-family: var(--font-display);
+      font-size: clamp(0.9rem, 2vw, 1.1rem);
+      letter-spacing: 0.12em;
+      color: var(--gold);
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 2rem clamp(1.25rem, 5vw, 3rem);
+      text-align: center;
+    }
+    .footer-text {
+      font-family: var(--font-display);
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+    }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero-eyebrow { animation: fadeUp 0.8s 0.1s both; }
+    .hero-name    { animation: fadeUp 0.9s 0.25s both; }
+    .hero-subtitle { animation: fadeUp 0.9s 0.4s both; }
+    .hero-tagline { animation: fadeUp 0.9s 0.55s both; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 640px) {
+      .nav-inner { flex-direction: column; gap: 0.6rem; padding-top: 0.7rem; padding-bottom: 0.7rem; }
+      nav { gap: 1rem; flex-wrap: wrap; justify-content: center; }
+      .items-grid { grid-template-columns: 1fr; }
+      .prose-block { padding: 1.2rem 1.4rem; }
+      .plot-card, .math-card, .world-card { padding: 1.3rem 1.5rem; }
+      .dialogue-action { padding-left: 0; }
+      .speaker { min-width: 60px; }
+      .hero { min-height: 80vh; padding-top: 5rem; }
+      .writing-tab-btns { gap: 0.2rem; }
+      .tab-btn { padding: 0.5rem 0.8rem; font-size: 0.7rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════ HEADER ═══════════════════════════ -->
+<header>
+  <div class="nav-inner">
+    <span class="nav-logo">О&hairsp;К&hairsp;У&hairsp;Р&hairsp;А&hairsp;Н</span>
+    <nav>
+      <a href="#about">Обо мне</a>
+      <a href="#work">Работы</a>
+      <a href="#writing">Проза</a>
+      <a href="#outro">Контакт</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ═══════════════════════════ HERO ═══════════════════════════ -->
+<section class="hero">
+
+  <!-- SVG background: stars + fog -->
+  <svg class="hero-bg" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+      <radialGradient id="fogL" cx="15%" cy="85%" r="55%">
+        <stop offset="0%" stop-color="#b15f32" stop-opacity="0.22"/>
+        <stop offset="100%" stop-color="#16120d" stop-opacity="0"/>
+      </radialGradient>
+      <radialGradient id="fogR" cx="90%" cy="10%" r="50%">
+        <stop offset="0%" stop-color="#5f5f53" stop-opacity="0.14"/>
+        <stop offset="100%" stop-color="#16120d" stop-opacity="0"/>
+      </radialGradient>
+      <filter id="glow">
+        <feGaussianBlur stdDeviation="2.5" result="blur"/>
+        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+    </defs>
+
+    <!-- Base dark gradient -->
+    <rect width="1440" height="900" fill="#16120d"/>
+    <rect width="1440" height="900" fill="url(#fogL)"/>
+    <rect width="1440" height="900" fill="url(#fogR)"/>
+
+    <!-- Stars -->
+    <g filter="url(#glow)" fill="#f0ebe3">
+      <circle cx="120" cy="80" r="1.2" opacity="0.7"/>
+      <circle cx="240" cy="150" r="0.8" opacity="0.5"/>
+      <circle cx="380" cy="60" r="1.5" opacity="0.8"/>
+      <circle cx="520" cy="200" r="0.7" opacity="0.45"/>
+      <circle cx="700" cy="40" r="1.1" opacity="0.6"/>
+      <circle cx="850" cy="130" r="1.3" opacity="0.75"/>
+      <circle cx="960" cy="80" r="0.9" opacity="0.5"/>
+      <circle cx="1100" cy="160" r="1.4" opacity="0.7"/>
+      <circle cx="1250" cy="60" r="0.8" opacity="0.55"/>
+      <circle cx="1380" cy="120" r="1.1" opacity="0.6"/>
+      <circle cx="60"  cy="250" r="0.7" opacity="0.4"/>
+      <circle cx="200" cy="310" r="1.0" opacity="0.5"/>
+      <circle cx="440" cy="290" r="1.2" opacity="0.6"/>
+      <circle cx="620" cy="340" r="0.6" opacity="0.35"/>
+      <circle cx="780" cy="270" r="1.0" opacity="0.55"/>
+      <circle cx="1050" cy="300" r="0.9" opacity="0.45"/>
+      <circle cx="1200" cy="250" r="1.3" opacity="0.65"/>
+      <circle cx="1350" cy="330" r="0.7" opacity="0.4"/>
+      <circle cx="150" cy="420" r="0.8" opacity="0.38"/>
+      <circle cx="330" cy="460" r="1.1" opacity="0.5"/>
+      <circle cx="500" cy="500" r="0.6" opacity="0.32"/>
+      <circle cx="900" cy="440" r="1.0" opacity="0.48"/>
+      <circle cx="1150" cy="480" r="0.8" opacity="0.4"/>
+      <circle cx="1420" cy="450" r="1.2" opacity="0.55"/>
+    </g>
+
+    <!-- Constellation lines -->
+    <g stroke="#b15f32" stroke-width="0.5" opacity="0.25">
+      <line x1="380" y1="60"  x2="700" y2="40"/>
+      <line x1="700" y1="40"  x2="850" y2="130"/>
+      <line x1="850" y1="130" x2="1100" y2="160"/>
+      <line x1="120" y1="80"  x2="380" y2="60"/>
+    </g>
+
+    <!-- Bottom vignette -->
+    <defs>
+      <linearGradient id="vignette" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#16120d" stop-opacity="0"/>
+        <stop offset="100%" stop-color="#16120d" stop-opacity="1"/>
+      </linearGradient>
+    </defs>
+    <rect width="1440" height="900" fill="url(#vignette)"/>
+  </svg>
+
+  <div class="container">
+    <p class="hero-eyebrow">Портфолио игрового сценариста</p>
+    <h1 class="hero-name">Оля Куран</em></h1>
+    <p class="hero-subtitle">Слова — это тоже оружие.</p>
+    <p class="hero-tagline">
+      Публикующийся автор, театральный сценарист, создатель миров.<br/>
+      Ищу работу игрового сценариста.
+    </p>
+  </div>
+</section>
+
+<!-- ─── WAVE DIVIDER 1 ─── -->
+<div class="divider" aria-hidden="true">
+  <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;height:60px;">
+    <path d="M0,30 C240,60 480,0 720,30 C960,60 1200,0 1440,30 L1440,60 L0,60 Z" fill="#211c15"/>
+  </svg>
+</div>
+
+<!-- ═══════════════════════════ ABOUT ═══════════════════════════ -->
+<section id="about">
+  <div class="container">
+    <p class="section-label">Обо мне</p>
+    <h2 class="section-title">Кто я</h2>
+    <div class="about-body">
+      <p>Привет, меня зовут Оля, и я ищу работу игрового сценариста.</p>
+      <p>Я много пишу, публикуюсь — издательство Стрельбицкого выпустило две мои книги — и как сценарист сотрудничаю с Краснодарским театром «Дебют». Несколько раз я писала игровые тексты для фанатских проектов. И сейчас расскажу о том, что умею.</p>
+    </div>
+    <div class="about-badges">
+      <span class="badge">Две изданные книги</span>
+      <span class="badge">Театр «Дебют»</span>
+      <span class="badge">Игровые тексты</span>
+      <span class="badge">Онлайн-квесты</span>
+      <span class="badge">Фантастика</span>
+    </div>
+  </div>
+</section>
+
+<!-- ─── ORNAMENTAL DIVIDER ─── -->
+<div class="divider" aria-hidden="true">
+  <svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;height:80px;">
+    <path d="M0,0 L1440,0 L1440,20 C1200,60 960,80 720,60 C480,40 240,0 0,40 Z" fill="#211c15"/>
+    <path d="M0,40 C240,0 480,40 720,60 C960,80 1200,60 1440,20 L1440,80 L0,80 Z" fill="#16120d"/>
+  </svg>
+</div>
+
+<!-- ═══════════════════════════ WORK ═══════════════════════════ -->
+<section id="work">
+  <div class="container">
+    <p class="section-label">Избранные работы</p>
+    <h2 class="section-title">Подробнее</h2>
+
+    <!-- ── Project 1: Подарки 1/7 ── -->
+    <article class="project">
+      <p class="project-year">2015</p>
+      <h3 class="project-title">«Подарки 1/7»</h3>
+      <p class="project-desc">Онлайн-проект: ёмкие описания самых обыденных предметов</p>
+      <p style="font-size:1rem;color:var(--text);margin-bottom:0.5rem;">Задача — дать обыденному предмету краткое, точное, неожиданное описание.</p>
+
+      <div class="items-grid">
+        <div class="item-card">
+          <div class="item-name">Топор</div>
+          <div class="item-text">От головной боли и людей, которые её вызывают.</div>
+        </div>
+        <div class="item-card">
+          <div class="item-name">Бриллиант</div>
+          <div class="item-text">Тот же графит, но умеет себя подать.</div>
+        </div>
+        <div class="item-card">
+          <div class="item-name">Яд</div>
+          <div class="item-text">Если по-хорошему не вышло…</div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ── Project 2: Жажда ── -->
+    <article class="project">
+      <p class="project-year">Недавно</p>
+      <h3 class="project-title">«Ключи⇒Сюжеты»</h3>
+      <p class="project-desc">Игра для авторов-фантастов: придумать сюжет от одного слова-ключа</p>
+
+      <div class="plot-card">
+        <p class="plot-keyword">Ключ: Жажда</p>
+        <div class="plot-text">
+          <p>В футуристичном обществе летающих машин и исполинских небоскрёбов изобрели препарат «Жажда» — он перестраивает организм, делая человека эмпатом, и одновременно блокирует выработку эндорфинов. Чувствовать радость самостоятельно «жаждущие» не способны — им нужен источник в других людях.</p>
+          <p>Многие преступники, которым ввели препарат, вместо исправления начали похищать людей и устраивать «колодцы света»: притоны, где людей держат в постоянном кайфе. Их называют <em>светляками</em>.</p>
+          <p>За светляками охотится специальный отдел Судей. Главный герой — один из Судей. В трущобах ходят слухи о загадочной <em>Железной Деве</em> — враче, которая нашла способ избавиться от жажды. Во время расследования светляки вкалывают герою препарат. У него — 24 часа прежде, чем препарат перестроит его навсегда. Сутки, чтобы найти Железную Деву.</p>
+        </div>
+      </div>
+    </article>
+
+    <!-- ── Project 3: Xeno-математика ── -->
+    <article class="project">
+      <p class="project-year">2014</p>
+      <h3 class="project-title">«Xeno-математика»</h3>
+      <p class="project-desc">Юмористический задачник для командного сетевого конкурса</p>
+      <p style="font-size:1rem;color:var(--text);margin-bottom:1rem;">Команда энтузиастов придумывала задачи про космос, сексуального террориста со щупальцами Джерго и пришельцев.</p>
+
+      <div class="math-card">
+        <p style="font-family:var(--font-display);font-size:0.75rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:0.8rem;">Задача I — Про опытных и неопытных</p>
+        <p>Попав в щупальца к Джерго, один неопытный космодесантник произносит восемь плохих слов про ситуацию в целом, на три плохих слова больше — про Джерго, и ещё два с половиной — про маму и папу Джерго до начала сеанса любви, и ещё семнадцать плохих слов про командование в процессе.</p>
+        <p>Опытный космодесантник, попав к Джерго, произносит на три плохих слова про ситуацию больше, чем неопытный, восемь плохих слов — про Джерго, маму и папу Джерго не упоминает вообще. В процессе — молчит.</p>
+        <p class="math-q">? На сколько слов меньше говорит опытный космодесантник по сравнению с неопытным, если, кроме плохих слов, они не говорят ничего?</p>
+      </div>
+
+      <div class="math-card">
+        <p style="font-family:var(--font-display);font-size:0.75rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:0.8rem;">Задача II — Про космических энтузиастов</p>
+        <p>Чтобы победить любовью одного агрессивно настроенного инопланетянина, обычному космическому пацифисту требуется один сексуальный наряд из интерактивной голограммы, четыре призывных взгляда, шесть многозначительных улыбок и два разнузданных половых акта.</p>
+        <p>Необычный космический пацифист нарядов не носит и для победы использует вдвое меньше взглядов, улыбок и актов.</p>
+        <p class="math-q">? Сколько агрессивных инопланетян победит один необычный пацифист, использовав 18 призывных взглядов и 27 многозначительных улыбок? Сколько актов прилагается?</p>
+        <p class="math-q">? Сколько нарядов, взглядов, улыбок и актов потребуется шести обычным пацифистам, чтобы победить шестьдесят шесть агрессивных пришельцев?</p>
+      </div>
+    </article>
+
+    <!-- ── Project 4: Онлайн-квест ── -->
+    <article class="project">
+      <p class="project-year">Позднее</p>
+      <h3 class="project-title">Онлайн-квест</h3>
+      <p class="project-desc">Подсказки, загадки, вопросы — и целый мир в награду</p>
+      <p style="font-size:1rem;color:var(--text);margin-bottom:1rem;">В результате можно было выиграть целый мир. Не слишком райский, зато бесплатно:</p>
+
+      <div class="world-card">
+        <p class="world-title">Адский Разлом</p>
+        <p class="world-desc">Жаркий климат, инфернальные монстры и огненные дожди — изюминка этого мира. Идеальное место для Тёмных Властелинов, экстремалов и идиотов.</p>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ─── FLAME DIVIDER ─── -->
+<div class="divider" aria-hidden="true">
+  <svg viewBox="0 0 1440 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;height:90px;">
+    <defs>
+      <linearGradient id="flameFill" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#211c15"/>
+        <stop offset="100%" stop-color="#211c15"/>
+      </linearGradient>
+    </defs>
+    <!-- Wavy flames going down into next section -->
+    <path d="
+      M0,0
+      C60,0 80,40 120,35
+      C160,30 180,0 240,0
+      C300,0 320,45 380,38
+      C440,31 460,0 540,0
+      C620,0 640,50 720,42
+      C800,34 820,0 900,0
+      C980,0 1000,48 1080,40
+      C1160,32 1180,0 1260,0
+      C1340,0 1380,38 1440,30
+      L1440,90 L0,90 Z
+    " fill="#211c15"/>
+  </svg>
+</div>
+
+<!-- ═══════════════════════════ WRITING ═══════════════════════════ -->
+<section id="writing">
+  <div class="container">
+    <p class="section-label">Авторская проза</p>
+    <h2 class="section-title">Голос</h2>
+
+    <div class="writing-tab-group">
+      <div class="writing-tab-btns" role="tablist">
+        <button class="tab-btn active" role="tab" onclick="switchTab(this,'tab-desc')">Описания</button>
+        <button class="tab-btn" role="tab" onclick="switchTab(this,'tab-dialogue')">Диалог</button>
+        <button class="tab-btn" role="tab" onclick="switchTab(this,'tab-life')">Жизнелюбие</button>
+      </div>
+
+      <!-- ОПИСАНИЯ -->
+      <div id="tab-desc" class="tab-content active">
+        <div class="prose-block">
+          «Бот был небольшой и старый, он семенил по захламлённому сектору, припадая на неисправный правый манипулятор, и в отблесках голографических реклам где-то наверху сам казался ожившим комком мусора. Правая верхняя часть его корпуса совсем рядом с вытертыми буквами RAT-0714 была разъедена то ли сверхкоррогентом, то ли кислотой, оставляя серийный номер нечитаемым, но Джеха Крысолова и не интересовал серийник. Маленький муниципальный бот дышал на ладан и давно подлежал списанию, но по частям мог принести хоть какую-то прибыль и позволить Джеху заплатить за квартиру.»
+          <span class="prose-source">— из рассказа «Ксенофил», сборник «Эффект котика»</span>
+        </div>
+
+        <div class="ornament" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="3" stroke="#b15f32" stroke-width="1"/>
+            <circle cx="12" cy="12" r="7" stroke="#3d3c32" stroke-width="0.5"/>
+            <line x1="12" y1="2" x2="12" y2="6" stroke="#b15f32" stroke-width="0.8"/>
+            <line x1="12" y1="18" x2="12" y2="22" stroke="#b15f32" stroke-width="0.8"/>
+            <line x1="2" y1="12" x2="6" y2="12" stroke="#b15f32" stroke-width="0.8"/>
+            <line x1="18" y1="12" x2="22" y2="12" stroke="#b15f32" stroke-width="0.8"/>
+          </svg>
+        </div>
+
+        <div class="prose-block">
+          «Солнце опускалось за горизонт медленно, так, словно задалось целью пропитать золотом всё — от самой незначительной травинки до последнего камушка. Тени садовых деревьев, длинные и будто раскатанные скалкой до какой-то хрупкой нездешней полупрозрачности, льнули к земле, а в воздухе пахло той неповторимой смесью луговых цветов и тепла, какой пахнут только счастливые летние вечера, если им случается задержаться в наших детских воспоминаниях.»
+          <span class="prose-source">— из сказки «Обмену и возврату не подлежит»</span>
+        </div>
+      </div>
+
+      <!-- ДИАЛОГ -->
+      <div id="tab-dialogue" class="tab-content">
+        <p style="font-size:0.9rem;color:var(--muted);font-style:italic;margin-bottom:1.5rem;">Из «Игры вслепую». Заказчик звонит космическому пирату с просьбой украсть из Столичного Дворца охранника-легионера.</p>
+        <div class="dialogue">
+          <div class="dialogue-line">
+            <span class="speaker">Сид</span>
+            <span>— Привет, dok. Давно жду твоего звонка. Собирался заскочить на днях, напомнить о себе.</span>
+          </div>
+          <div class="dialogue-line">
+            <span class="speaker">Клеман</span>
+            <span>— Предпочёл бы общение на расстоянии.</span>
+          </div>
+          <p class="dialogue-action">Сид рассмеялся, достал из нагрудного кармана пачку сигарет и ловким движением выбил одну.</p>
+          <div class="dialogue-line">
+            <span class="speaker">Сид</span>
+            <span>— Какой-то месяц непрухи в любви. Неделю назад меня отшили в баре на Эос, вчера сломалась кофеварка, сегодня ты предпочитаешь общение на расстоянии. Что дальше?</span>
+          </div>
+          <p class="dialogue-action">Сид прикурил сигарету жестом фокусника, который убеждён, что творит магию, затянулся, выдохнул голубоватый дым и улыбнулся — добродушно и весело.</p>
+          <div class="dialogue-line">
+            <span class="speaker">Клеман</span>
+            <span>— Межгалактический коннект стоит недёшево. Я предпочёл бы перейти сразу к делу.</span>
+          </div>
+          <div class="dialogue-line">
+            <span class="speaker">Сид</span>
+            <span>— Я понял, что романтика обломилась. Весь внимание.</span>
+          </div>
+          <p class="dialogue-action">Клеман раскрыл перед ним визуальный файл.</p>
+          <div class="dialogue-line">
+            <span class="speaker">Клеман</span>
+            <span>— Есть клиент, который готов заплатить немалую сумму за человека перед тобой.</span>
+          </div>
+          <div class="dialogue-line">
+            <span class="speaker">Сид</span>
+            <span>— За легионера? И ты позвонил мне?</span>
+          </div>
+          <div class="dialogue-line">
+            <span class="speaker">Клеман</span>
+            <span>— Не думаю, что во Вселенной найдётся много желающих стать врагами Империи, напав на Фивонский Дворец. Из немногих я сразу вспомнил тебя.</span>
+          </div>
+          <div class="dialogue-line">
+            <span class="speaker">Сид</span>
+            <span>— Ты меня переоцениваешь, dok. В мире полно идиотов.</span>
+          </div>
+          <p class="dialogue-action">Сид затянулся, рассмеялся так, словно вспомнил что-то весёлое, и добавил:</p>
+          <div class="dialogue-line">
+            <span class="speaker">Сид</span>
+            <span>— Я мог бы прислать тебе фотографии.</span>
+          </div>
+          <div class="dialogue-line">
+            <span class="speaker">Клеман</span>
+            <span>— Не стоит. Если тебе интересен заказ, я могу свести тебя с клиентом. Разумеется, не бесплатно.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ЖИЗНЕЛЮБИЕ -->
+      <div id="tab-life" class="tab-content">
+        <div class="prose-block">
+          «У входа на территорию закрытого заповедника «Неведомая земля Анхеи» висела голографическая табличка: выцветшая от времени и недостатка питания, небольшая, она располагалась немного криво. Буквы на ней то и дело шли рябью помех, но в целом оставались вполне читаемыми:<br/><br/>
+          <em>«Пожалуйста, не кормите собой диких животных».</em><br/><br/>
+          Уже через пятнадцать минут после пересечения силовой ограды заповедника Спенсер Рейз — лучший коллектор межгалактического агентства «Экстрим» — изо всех сил пытался сделать именно это: не накормить собой диких животных.<br/><br/>
+          Сделать это на Анхее можно было только одним способом: очень быстро перебирая ногами.<br/><br/>
+          Рейз, видимо, об этом знал и потому бежал — бежал изо всех сил, во всю мощь респиратора вдыхая раскалённую алую пыль, которая на Анхее неубедительно изображала атмосферу.<br/><br/>
+          Бронтоларк — чешуйчатая тварь с острыми шипами вдоль холки, которую какой-то идиот посчитал достойной сохранения в заповеднике — не отставал, потому что, увы, тоже отлично умел бегать.»
+          <span class="prose-source">— начало рассказа «Пищевая цепочка», сборник «Эффект котика»</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CLOSING DIVIDER ─── -->
+<div class="divider" aria-hidden="true">
+  <svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;height:80px;">
+    <path d="M0,60 C360,20 720,80 1080,40 C1260,20 1380,0 1440,20 L1440,80 L0,80 Z" fill="#16120d"/>
+    <path d="M0,80 L1440,80 L1440,60 C1380,40 1260,60 1080,40 C720,20 360,80 0,40 Z" fill="#211c15" opacity="0.3"/>
+  </svg>
+</div>
+
+<!-- ═══════════════════════════ OUTRO ═══════════════════════════ -->
+<section id="outro">
+  <div class="container">
+
+    <!-- Decorative SVG ornament — rose window -->
+    <div style="display:flex;justify-content:center;margin-bottom:2.5rem;" aria-hidden="true">
+      <svg width="200" height="80" viewBox="0 0 200 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line x1="0" y1="40" x2="64" y2="40" stroke="#3d3c32" stroke-width="0.7"/>
+        <line x1="136" y1="40" x2="200" y2="40" stroke="#3d3c32" stroke-width="0.7"/>
+        <polygon points="52,40 58,34 64,40 58,46" stroke="#b15f32" stroke-width="0.8" fill="none"/>
+        <polygon points="136,40 142,34 148,40 142,46" stroke="#b15f32" stroke-width="0.8" fill="none"/>
+        <circle cx="100" cy="40" r="22" stroke="#3d3c32" stroke-width="0.6"/>
+        <circle cx="100" cy="40" r="14" stroke="#b15f32" stroke-width="0.8"/>
+        <circle cx="100" cy="40" r="6" stroke="#b15f32" stroke-width="1"/>
+        <circle cx="100" cy="40" r="2.5" fill="#b15f32"/>
+        <line x1="100" y1="18" x2="100" y2="26" stroke="#b15f32" stroke-width="0.7" opacity="0.7"/>
+        <line x1="100" y1="54" x2="100" y2="62" stroke="#b15f32" stroke-width="0.7" opacity="0.7"/>
+        <line x1="78" y1="40" x2="86" y2="40" stroke="#b15f32" stroke-width="0.7" opacity="0.7"/>
+        <line x1="114" y1="40" x2="122" y2="40" stroke="#b15f32" stroke-width="0.7" opacity="0.7"/>
+        <line x1="84" y1="24" x2="90" y2="30" stroke="#b15f32" stroke-width="0.5" opacity="0.5"/>
+        <line x1="116" y1="24" x2="110" y2="30" stroke="#b15f32" stroke-width="0.5" opacity="0.5"/>
+        <line x1="84" y1="56" x2="90" y2="50" stroke="#b15f32" stroke-width="0.5" opacity="0.5"/>
+        <line x1="116" y1="56" x2="110" y2="50" stroke="#b15f32" stroke-width="0.5" opacity="0.5"/>
+      </svg>
+    </div>
+
+    <p class="outro-text">Вот и всё. Спасибо за внимание и за то, что дочитали до конца.</p>
+    <p class="cta-line">Буду ждать тестовое задание :)</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ FOOTER ═══════════════════════════ -->
+<footer>
+  <p class="footer-text">© Оля Куран — Портфолио игрового сценариста</p>
+</footer>
+
+<script>
+  function switchTab(btn, tabId) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(tabId).classList.add('active');
+  }
+</script>
+
+</body>
+</html>
